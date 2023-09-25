@@ -1,5 +1,5 @@
 OrderedIdentityDictionary {
-	var keys, dict;
+	var <keys, dict;
 
 	*new {
 		^super.new.init;
@@ -19,16 +19,16 @@ OrderedIdentityDictionary {
 	do {
 		arg func;
 		keys.do{
-			arg key;
-			func.(dict[key]);
+			arg key,i;
+			func.(dict[key],i);
 		}
 	}
 
 	keysValuesDo {
 		arg func;
 		keys.do{
-			arg key;
-			func.(key,dict[key]);
+			arg key,i;
+			func.(key,dict[key],i);
 		}
 	}
 
@@ -66,6 +66,14 @@ OrderedIdentityDictionary {
 
 	size {
 		^keys.size;
+	}
+
+	postln {
+		var longest = this.keys.collect{arg k; k.asString.size}.maxItem;
+		this.keysValuesDo{
+			arg k, v;
+			"%\t%".format("%:".format(k).padRight(longest),v).postln;
+		};
 	}
 
 }
