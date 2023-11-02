@@ -10,6 +10,11 @@ OrderedIdentityDictionary {
 		dict = IdentityDictionary.new;
 	}
 
+	includesKey {
+		arg k;
+		^dict.includesKey(k);
+	}
+
 	put {
 		arg key, value;
 		keys.add(key);
@@ -19,6 +24,14 @@ OrderedIdentityDictionary {
 	do {
 		arg func;
 		keys.do{
+			arg key,i;
+			func.(dict[key],i);
+		}
+	}
+
+	collect {
+		arg func;
+		^keys.collect{
 			arg key,i;
 			func.(dict[key],i);
 		}
@@ -48,7 +61,7 @@ OrderedIdentityDictionary {
 		^dict[key];
 	}
 
-	valueAtIndex {
+	atIndex {
 		arg index;
 		^dict[this.keyAtIndex(index)];
 	}
@@ -75,5 +88,4 @@ OrderedIdentityDictionary {
 			"%\t%".format("%:".format(k).padRight(longest),v).postln;
 		};
 	}
-
 }
